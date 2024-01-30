@@ -1,26 +1,26 @@
 package com.example.java_board.controller;
 
-import com.example.java_board.entity.Board;
+import com.example.java_board.dto.BoardDto;
 import com.example.java_board.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-@RestController
-@RequestMapping("/api/boards")
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/board")
 public class BoardController {
-    @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
 
-    @GetMapping
-    public List<Board> getAllBoards() {
-        return boardService.getAllBoards();
+    @GetMapping("/save")
+    public String saveForm() {
+        return "save";
     }
-
-    @PostMapping("/create")
-    public Board createBoard(@RequestBody Board board) {
-        return boardService.createBoard(board);
+    @PostMapping("/save")
+    public String save(@ModelAttribute BoardDto boardDto) {
+        System.out.println("boardDTO = " + boardDto);
+        boardService.save(boardDto);
+        return "index";
     }
-
 }

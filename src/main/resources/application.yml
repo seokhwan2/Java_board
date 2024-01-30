@@ -1,15 +1,20 @@
 ###LOCAL DB-MYSQL ###
+server:
+  port: 8083
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/java_board?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
+  thymeleaf:
+      cache: false
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
       generate-ddl: false
@@ -22,12 +27,9 @@ spring:
         useUnicode: true
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
   http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
 
-server:
-  port: 8083
