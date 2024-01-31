@@ -4,7 +4,10 @@ import com.example.java_board.dto.BoardDto;
 import com.example.java_board.service.BoardService;
 import lombok.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -22,5 +25,12 @@ public class BoardController {
         System.out.println("boardDTO = " + boardDto);
         boardService.save(boardDto);
         return "index";
+    }
+
+    @GetMapping("/")
+    public String findAll(Model model) {
+        List<BoardDto> boardDtoList = boardService.findAll();
+        model.addAttribute("boardList", boardDtoList);
+        return "list";
     }
 }
